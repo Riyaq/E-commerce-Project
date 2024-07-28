@@ -1,0 +1,59 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import mysql.connector
+
+
+# To establish connection taing a variable as mydb.
+mydb = mysql.connector.connect(host="localhost", 
+                               username="root",
+                               password="Riya",
+                               database="ecommerce")
+
+# Lets activate the cursor.
+cur = mydb.cursor()
+----------------------------------------------------------------------------------------------------------------------
+1. Query:List all unique cities where customer are located.
+
+# Creating variable named query
+query = """select distinct(customer_city) from customers"""
+
+# To execute the query
+cur.execute(query)
+
+# Creating a variable named data to fetch all the data from cursor
+data = cur.fetchall()
+data
+
+# if you want to recheck in SQL workbench run-
+select distinct customer_city from customers;
+
+----------------------------------------------------------------------------------------------------------------------
+2. Query: Count the number of orders placed in 2017
+
+# Query-
+query = """ select count(order_id) from orders where year(order_purchase_timestamp) = 2017 """
+cur.execute(query)
+data = cur.fetchall()
+data[0][0]
+"So total order placed in 2017",data[0][0]
+
+# if you want to recheck in SQL workbench run - 
+select count(order_id) from orders where year(order_purchase_timestamp)=2017;
+----------------------------------------------------------------------------------------------------------------------
+3. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
