@@ -79,10 +79,14 @@ SELECT (sum(case when payment_installments>=1 then 1 else 0 end))/count(*)*100 f
 
 
 ----------------------------------------------------------------------------------------------------------------------
-5. 
+5. Count the number of customer from each state
 
+query = """ SELECT customer_state, count(customer_id) from  oldcustomers group by customer_state;"""
+cur.execute(query)
+data = cur.fetchall()
+df=pd.DataFrame(data, columns = ["State","Number"])
+df
 
-
-
-
+----------------------------------------------------------------------------------------------------------------------
+6. 
 
