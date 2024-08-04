@@ -41,10 +41,35 @@ data[0][0]
 # if you want to recheck in SQL workbench run - 
 select count(order_id) from orders where year(order_purchase_timestamp)=2017;
 ----------------------------------------------------------------------------------------------------------------------
-3. 
+3. Find the total sale per category
 
+Products --> Product_category , Product_id
+Payments --> Payment_value , order_id
+Order_itmes --> Product_id , order_id
 
+query = """ SELECT products.product_category category, round(sum(payments.payment_value),2)  sales
+from products
+join order_items
+on 
+products.Product_id=order_items.Product_id
+join payments
+on payments.order_id=order_items.order_id
+group by category; """
 
+cur.execute(query)
+data = cur.fetchall()
+df=pd.DataFrame(data)
+df
+
+# IN SQL
+SELECT products.product_category category, round(sum(payments.payment_value),2)  sales
+from products
+join order_items
+on 
+products.Product_id=order_items.Product_id
+join payments
+on payments.order_id=order_items.order_id
+group by category;
 
 
 
