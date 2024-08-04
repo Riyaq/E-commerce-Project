@@ -61,7 +61,7 @@ data = cur.fetchall()
 df=pd.DataFrame(data, columns = ["Categoty","Sales"]) # Giving output column name here "Categoty","Sales"
 df
 
-# IN SQL
+# IN MySQL
 SELECT products.product_category category, round(sum(payments.payment_value),2)  sales
 from products
 join order_items
@@ -87,6 +87,65 @@ data = cur.fetchall()
 df=pd.DataFrame(data, columns = ["State","Number"])
 df
 
+# Lets impose matploblib
+
+import matplotlib.pyplot as plt
+query = """ SELECT customer_state, count(customer_id) from  oldcustomers group by customer_state; """
+cur.execute(query)
+data = cur.fetchall()
+df=pd.DataFrame(data, columns = ["State","Customer_count"])
+df=df.sort_values(by= "Customer_count", ascending=False)
+
+plt.figure(figsize=(8,3))
+plt.bar(df["State"],df["Customer_count"])
+plt.xticks(rotation=90)
+plt.show()
+
+
+
 ----------------------------------------------------------------------------------------------------------------------
-6. 
+# INTERMEDIATE QUERY
+6. Calculate number of orders per month in the year 2018
+# MySQL
+Select monthname(order_purchase_timestamp) month, count(order_id) order_count from orders
+where year(order_purchase_timestamp) = 2018
+group by month;
+
+
+# NOTEBOOK
+Query=""" SELECT monthname(order_purchase_timestamp) month, count(order_id) order_count from orders
+where year(order_purchase_timestamp) = 2018
+group by month;
+"""
+
+cur.execute(Query)
+data = cur.fetchall()
+df=pd.DataFrame(data, columns =["Month","Order_count"])
+df
+
+# USING BAR GRAPH
+Query=""" SELECT monthname(order_purchase_timestamp) month, count(order_id) order_count from orders
+where year(order_purchase_timestamp) = 2018
+group by month;
+"""
+
+cur.execute(Query)
+data = cur.fetchall()
+df=pd.DataFrame(data, columns =["Month","Order_count"])
+plt.bar(df["Month"],df["Order_count"])
+plt.show()
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 
