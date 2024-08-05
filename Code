@@ -137,13 +137,31 @@ plt.show()
 
 
 ----------------------------------------------------------------------------------------------------------------------
+7. Find the average number of products per order, grouped by customer city.
+
+In order_items table the second column is referring how many products per order.
+
+oldcustomers table -> Customer_id , Customer_city
+order_items table -> order_id , Order_item_id
+orders table -> order_id , Customer_id
 
 
 
+# Creating a table to store output of first query named as - count_per_order
+code-
+with count_per_order as 
+(select orders.order_id, orders.customer_id, count(order_items.order_id) as oc
+from orders join order_items
+on orders.order_id = order_items.order_id
+group by orders.order_id, orders.customer_id)
 
+select oldcustomers.customer_city, round(avg(count_per_order.oc),2) average_orders
+from oldcustomers join count_per_order
+on oldcustomers.customer_id = count_per_order.customer_id
+group by oldcustomers.customer_city order by average_orders desc
 
-
-
+----------------------------------------------------------------------------------------------------------------------
+8. 
 
 
 
