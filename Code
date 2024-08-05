@@ -15,30 +15,13 @@ cur = mydb.cursor()
 ----------------------------------------------------------------------------------------------------------------------
 1. Query:List all unique cities where customer are located.
 
-# Creating variable named query
-query = """select distinct(customer_city) from customers"""
-
-# To execute the query
-cur.execute(query)
-
-# Creating a variable named data to fetch all the data from cursor
-data = cur.fetchall()
-data
-
-# if you want to recheck in SQL workbench run-
+Code-
 select distinct customer_city from customers;
 
 ----------------------------------------------------------------------------------------------------------------------
 2. Query: Count the number of orders placed in 2017
 
-# Query-
-query = """ select count(order_id) from orders where year(order_purchase_timestamp) = 2017 """
-cur.execute(query)
-data = cur.fetchall()
-data[0][0]
-"So total order placed in 2017",data[0][0]
-
-# if you want to recheck in SQL workbench run - 
+Code-
 select count(order_id) from orders where year(order_purchase_timestamp)=2017;
 ----------------------------------------------------------------------------------------------------------------------
 3. Find the total sale per category
@@ -47,21 +30,7 @@ Products --> Product_category , Product_id
 Payments --> Payment_value , order_id
 Order_itmes --> Product_id , order_id
 
-query = """ SELECT products.product_category category, round(sum(payments.payment_value),2)  sales
-from products
-join order_items
-on 
-products.Product_id=order_items.Product_id
-join payments
-on payments.order_id=order_items.order_id
-group by category; """
-
-cur.execute(query)
-data = cur.fetchall()
-df=pd.DataFrame(data, columns = ["Categoty","Sales"]) # Giving output column name here "Categoty","Sales"
-df
-
-# IN MySQL
+Code-
 SELECT products.product_category category, round(sum(payments.payment_value),2)  sales
 from products
 join order_items
@@ -74,20 +43,16 @@ group by category;
 ----------------------------------------------------------------------------------------------------------------------
 4. Calculate total percentage of orders that were paid in installments.
 
-
+Code-
 SELECT (sum(case when payment_installments>=1 then 1 else 0 end))/count(*)*100 from payments
 
 
 ----------------------------------------------------------------------------------------------------------------------
 5. Count the number of customer from each state
 
-query = """ SELECT customer_state, count(customer_id) from  oldcustomers group by customer_state;"""
-cur.execute(query)
-data = cur.fetchall()
-df=pd.DataFrame(data, columns = ["State","Number"])
-df
+SELECT customer_state, count(customer_id) from  oldcustomers group by customer_state;"""
 
-# Lets impose matploblib
+# Using matploblib here
 
 import matplotlib.pyplot as plt
 query = """ SELECT customer_state, count(customer_id) from  oldcustomers group by customer_state; """
@@ -95,7 +60,6 @@ cur.execute(query)
 data = cur.fetchall()
 df=pd.DataFrame(data, columns = ["State","Customer_count"])
 df=df.sort_values(by= "Customer_count", ascending=False)
-
 plt.figure(figsize=(8,3))
 plt.bar(df["State"],df["Customer_count"])
 plt.xticks(rotation=90)
@@ -104,42 +68,20 @@ plt.show()
 
 
 ----------------------------------------------------------------------------------------------------------------------
-# INTERMEDIATE QUERY
+
 6. Calculate number of orders per month in the year 2018
-# MySQL
+code-
 Select monthname(order_purchase_timestamp) month, count(order_id) order_count from orders
 where year(order_purchase_timestamp) = 2018
 group by month;
 
-
-# NOTEBOOK
-Query=""" SELECT monthname(order_purchase_timestamp) month, count(order_id) order_count from orders
-where year(order_purchase_timestamp) = 2018
-group by month;
-"""
-
-cur.execute(Query)
-data = cur.fetchall()
-df=pd.DataFrame(data, columns =["Month","Order_count"])
-df
-
 # USING BAR GRAPH
-Query=""" SELECT monthname(order_purchase_timestamp) month, count(order_id) order_count from orders
-where year(order_purchase_timestamp) = 2018
-group by month;
-"""
-
-cur.execute(Query)
-data = cur.fetchall()
-df=pd.DataFrame(data, columns =["Month","Order_count"])
 plt.bar(df["Month"],df["Order_count"])
 plt.show()
 
 
 ----------------------------------------------------------------------------------------------------------------------
 7. Find the average number of products per order, grouped by customer city.
-
-In order_items table the second column is referring how many products per order.
 
 oldcustomers table -> Customer_id , Customer_city
 order_items table -> order_id , Order_item_id
@@ -194,11 +136,5 @@ on payments.order_id=order_items.order_id
 join Sellers 
 on Sellers.Seller_id=order_items.Seller_id
 group by Seller_id order by Revenue desc;
-
-
-
-
-
-
 
 
