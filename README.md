@@ -16,7 +16,7 @@ import mysql.connector<br>
 **To establish connection taing a variable as mydb**<br>
 mydb = mysql.connector.connect(host="localhost", <br>
                                username="root",<br>
-                               password="Riya",<br>
+                               password="**********",<br>
                                database="ecommerce")<br>
 <br>
 **Lets activate the cursor**<br>
