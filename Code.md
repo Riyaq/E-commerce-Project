@@ -7,8 +7,9 @@ select distinct customer_city from customers;
 ----------------------------------------------------------------------------------------------------------------------
 2. Query: Count the number of orders placed in 2017
 
-Code-
+```sql
 select count(order_id) from orders where year(order_purchase_timestamp)=2017;
+```
 ----------------------------------------------------------------------------------------------------------------------
 3. Find the total sale per category
 
@@ -40,7 +41,7 @@ SELECT customer_state, count(customer_id) from  oldcustomers group by customer_s
 ```
 
 
-# Using matploblib here
+#Using matploblib here
 
 import matplotlib.pyplot as plt
 query = """ SELECT customer_state, count(customer_id) from  oldcustomers group by customer_state; """
@@ -63,7 +64,7 @@ Select monthname(order_purchase_timestamp) month, count(order_id) order_count fr
 where year(order_purchase_timestamp) = 2018
 group by month;
 ```
-# USING BAR GRAPH
+#USING BAR GRAPH
 plt.bar(df["Month"],df["Order_count"])
 plt.show()
 
@@ -77,7 +78,7 @@ orders table -> order_id , Customer_id
 
 
 
-# Creating a table to store output of first query named as - count_per_order
+#Creating a table to store output of first query named as - count_per_order
 code-
 with count_per_order as 
 (select orders.order_id, orders.customer_id, count(order_items.order_id) as oc
