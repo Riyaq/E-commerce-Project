@@ -15,9 +15,9 @@ cur = mydb.cursor()
 ----------------------------------------------------------------------------------------------------------------------
 1. Query:List all unique cities where customer are located.
 
-Code-
+```sql
 select distinct customer_city from customers;
-
+```
 ----------------------------------------------------------------------------------------------------------------------
 2. Query: Count the number of orders placed in 2017
 
@@ -30,7 +30,7 @@ Products --> Product_category , Product_id
 Payments --> Payment_value , order_id
 Order_itmes --> Product_id , order_id
 
-Code-
+```sql
 SELECT products.product_category category, round(sum(payments.payment_value),2)  sales
 from products
 join order_items
@@ -39,18 +39,20 @@ products.Product_id=order_items.Product_id
 join payments
 on payments.order_id=order_items.order_id
 group by category;
-
+```
 ----------------------------------------------------------------------------------------------------------------------
 4. Calculate total percentage of orders that were paid in installments.
 
-Code-
+```sql
 SELECT (sum(case when payment_installments>=1 then 1 else 0 end))/count(*)*100 from payments
-
+```
 
 ----------------------------------------------------------------------------------------------------------------------
 5. Count the number of customer from each state
-
+```sql
 SELECT customer_state, count(customer_id) from  oldcustomers group by customer_state;"""
+```
+
 
 # Using matploblib here
 
@@ -70,11 +72,11 @@ plt.show()
 ----------------------------------------------------------------------------------------------------------------------
 
 6. Calculate number of orders per month in the year 2018
-code-
+```sql
 Select monthname(order_purchase_timestamp) month, count(order_id) order_count from orders
 where year(order_purchase_timestamp) = 2018
 group by month;
-
+```
 # USING BAR GRAPH
 plt.bar(df["Month"],df["Order_count"])
 plt.show()
