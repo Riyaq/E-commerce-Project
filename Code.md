@@ -41,7 +41,7 @@ SELECT customer_state, count(customer_id) from  oldcustomers group by customer_s
 ```
 
 
-#Using matploblib here
+#Using matploblib here<br>
 
 import matplotlib.pyplot as plt
 query = """ SELECT customer_state, count(customer_id) from  oldcustomers group by customer_state; """
