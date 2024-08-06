@@ -20,5 +20,6 @@ mydb = mysql.connector.connect(host="localhost", <br>
                                database="ecommerce")<br>
 <br>
 **Lets activate the cursor**<br>
-cur = mydb.cursor()<br>
-![Uploading Screenshot 2024-08-06 at 1.33.55 AM.png…]()
+cur = mydb.cursor()<br><img width="1127" alt="SS" src="https://github.com/user-attachments/assets/187aab72-dbb3-4bac-a5ca-8b76830bc78f">
+
+
