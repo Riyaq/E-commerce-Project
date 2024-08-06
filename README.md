@@ -21,3 +21,4 @@ mydb = mysql.connector.connect(host="localhost", <br>
 <br>
 **Lets activate the cursor**<br>
 cur = mydb.cursor()
+![Uploading Screenshot 2024-08-06 at 1.33.55 AM.png…]()
